@@ -1,0 +1,7 @@
+---
+- name: Playbook para crear usuario usando el rol
+  hosts: nodos
+  become: true
+
+  roles:
+  - crear_usuarios
