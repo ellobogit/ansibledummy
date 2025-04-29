@@ -1,0 +1,8 @@
+---
+- name: saludo_handler
+  debug:
+    msg: "¡Handler ejecutado porque un recurso cambió en demo_role!"
+
+- name: motd_actualizado
+  debug:
+    msg: "⚡ Se actualizó el mensaje de bienvenida (MOTD) del sistema."

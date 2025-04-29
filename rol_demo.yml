@@ -1,0 +1,8 @@
+---
+- name: Aplicar rol demo_config
+  hosts: nodos
+  become: true # sudo
+
+  roles:
+  - demo_config # << aquí invocas tu rol
+  - crear_usuarios

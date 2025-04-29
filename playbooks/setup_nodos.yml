@@ -1,0 +1,30 @@
+---
+- name: Configurar nodos con tareas básicas
+  hosts: nodos
+  become: true
+
+  tasks:
+  - name: Crear un directorio en /opt
+    file:
+      path: /opt/ansible_playbook_demo
+      state: directory
+      mode: '0755'
+
+  - name: Crear un archivo
+    file:
+      path: /opt/ansible_playbook_demo/hola.txt
+      state: touch
+      owner: vagrant
+      group: vagrant
+      mode: '0644'
+
+  - name: Crear un symlink hacia el archivo
+    file:
+      src: /opt/ansible_playbook_demo/hola.txt
+      dest: /tmp/hola_link
+      state: link
+
+  - name: Eliminar el symlink
+    file:
+      path: /tmp/hola_link
+      state: absent

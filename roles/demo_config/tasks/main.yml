@@ -1,0 +1,59 @@
+---
+- name: Crear directorio de prueba
+  file:
+    path: "{{ demo_role_dir}}"
+    state: directory
+    mode: "0755"
+
+- name: Crear archivo dentro del directorio
+  file:
+    path: "{{ demo_role_dir }}/{{ demo_file_name }}"
+    state: touch
+    owner: vagrant
+    group: vagrant
+    mode: "0644"
+  notify: saludo_handler
+
+- name: Crear un archivo dinámico usando template
+  template:
+    src: saludo.j2
+    dest: "{{ demo_role_dir }}/saludo_generado.txt"
+    owner: vagrant
+    group: vagrant
+    mode: "0644"
+
+- name: Actualizar el MOTD del sistema
+  template:
+    src: motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: '0644'
+  notify: motd_actualizado
+
+- name: Crear archivos múltiples de prueba
+  file:
+    path: "{{ demo_role_dir }}/{{ item }}"
+    state: touch
+    mode: '0644'
+  loop:
+  - loop1.txt
+  - loop2.txt
+  - loop3.txt
+
+- name: Mostrar mensaje solo si el host es Ubuntu
+  debug:
+    msg: "Estoy corriendo sobre Ubuntu!"
+  when: ansible_distribution == "Ubuntu"
+
+- name: Escribir contenido personalizado en archivo
+  copy:
+    content: "Este archivo fue generado por ansible para el host {{ inventory_hostname }}\n"
+    dest: "{{ demo_role_dir }}/contenido_generado.txt"
+    mode: '0644'
+
+- name: Escribir contenido personalizado en en archivo especial
+  copy:
+    content: "Este archivo fue generado por ansible para el host {{ inventory_hostname }}\n"
+    dest: "{{ demo_role_dir }}/archivo_especial_nodo1.txt"
+    mode: '0644'
