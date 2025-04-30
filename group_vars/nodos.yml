@@ -1,3 +1,5 @@
 ---
 demo_role_dir: /opt/demo_role_group
 demo_file_name: archivo_grupal.txt
+nginx_install_from: os_package
+nginx_default_site_enabled: true

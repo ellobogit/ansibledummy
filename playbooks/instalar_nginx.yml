@@ -1,0 +1,7 @@
+---
+- name: Instalar Nginx desde Galaxy
+  hosts: nodos
+  become: true
+
+  roles:
+  - geerlingguy.nginx
